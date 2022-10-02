@@ -1,2 +1,2 @@
-# auto-lizing-calculator
+# auto-leasing-calculator
 Тестовое задание "Калькулятор лизинга авто"
