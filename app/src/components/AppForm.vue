@@ -246,9 +246,5 @@ export default defineComponent({
       transform: rotate(360deg);
     }
   }
-
-  .letter-changer::after {
-    animation: changeLetter 3s linear infinite alternate;
-  }
 }
 </style>
