@@ -1,0 +1,32 @@
+{
+	"params": [
+		{
+			"name": "price",
+			"title": "Стоимость автомобиля",
+			"measure": "₽",
+			"min": 1000000,
+			"max": 6000000,
+			"step": 1000,
+			"value": 3300000
+		},
+		{
+			"name": "initial",
+			"title": "Первоначальный взнос",
+			"measure": "%",
+			"min": 0.1,
+			"max": 0.6,
+			"step": 0.01,
+			"value": 0.13
+		},
+		{
+			"name": "months",
+			"title": "Срок лизинга",
+			"measure": "мес.",
+			"min": 1,
+			"max": 60,
+			"step": 1,
+			"value": 60
+		}
+	],
+	"rate": 0.035
+}

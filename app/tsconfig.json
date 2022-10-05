@@ -11,6 +11,8 @@
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
     "sourceMap": true,
+    "resolveJsonModule": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
     "types": [
       "webpack-env"

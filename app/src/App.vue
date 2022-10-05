@@ -1,39 +1,49 @@
 <template>
-  <h1 class="title">Рассчитайте стоимость автомобиля в лизинг</h1>
+  <AppForm :params="params" @params-changed="updateParams()" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import AppForm from "@/components/AppForm.vue";
+import defaulData from "@/assets/storage/data.json";
+import Calculate from "@/services/_calculation";
 
 export default defineComponent({
   name: "App",
-  components: {},
+  data() {
+    Calculate.params = defaulData.params;
+    Calculate.rate = defaulData.rate;
+
+    return {
+      params: Calculate.params,
+    };
+  },
+  methods: {
+    updateParams() {
+      this.params = JSON.parse(JSON.stringify(Calculate.params));
+    },
+  },
+  components: {
+    AppForm,
+  },
 });
 </script>
 
 <style lang="scss">
-@font-face {
-  font-family: "Nekst";
-  src: local("Nekst"),
-    url("@/assets/fonts/nekst/Nekst-Bold.woff2") format("woff2"),
-    url("@/assets/fonts/nekst/Nekst-Bold.woff") format("woff"),
-    url("@/assets/fonts/nekst/Nekst-Bold.ttf") format("ttf"),
-    url("@/assets/fonts/nekst/Nekst-Bold.eot") format("eot");
-  font-style: normal;
+@import "./styles/constants.scss";
+@import "./styles/fonts.scss";
+
+#app {
+  padding: 0 $app-padding;
 }
-@font-face {
-  font-family: "Gilroy";
-  src: local("Gilroy"),
-    url("@/assets/fonts/gilroy/Gilroy-Bold.woff2") format("woff2"),
-    url("@/assets/fonts/gilroy/Gilroy-Bold.woff") format("woff"),
-    url("@/assets/fonts/gilroy/Gilroy-Bold.ttf") format("ttf"),
-    url("@/assets/fonts/gilroy/Gilroy-Bold.eot") format("eot");
-  font-style: normal;
-}
+
 .title {
-  font-family: "Nekst", "Gilroy";
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: Nekst;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 54px;
+  line-height: 90%;
+
+  color: $dark-color;
 }
 </style>

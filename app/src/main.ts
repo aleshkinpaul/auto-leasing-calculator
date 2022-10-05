@@ -1,4 +1,15 @@
 import { createApp } from "vue";
+import mitt from "mitt";
 import App from "./App.vue";
 
-createApp(App).mount("#app");
+const emitter = mitt();
+const app = createApp(App);
+
+app.config.globalProperties.emitter = emitter;
+app.mount("#app");
+
+declare module "@vue/runtime-core" {
+  export interface ComponentCustomProperties {
+    emitter: typeof emitter;
+  }
+}

@@ -1,0 +1,23 @@
+//colors
+$dark-color: #2c3e50;
+$grey-dark-color: #575757;
+$grey-color: #ebebec;
+$grey-light-color: #f3f3f4;
+$orange-color: #ff9514;
+$white-color: #ffffff;
+$black-color: #111111;
+
+//common
+$app-padding: 48px;
+$column-gap: 32px;
+
+//fields
+$field-width: calc((100vw - 2 * ($app-padding + $column-gap)) / 3);
+$field-border-radius: 16px;
+$field-border-width: 2px;
+$range-thumb-size: 20px;
+$big-range-thumb-size: calc($range-thumb-size * 1.2);
+
+//button
+$button-height: 68px;
+$button-border-radius: 40px;
