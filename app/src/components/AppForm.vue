@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit="submitForm($event)" id="appForm">
     <h1 class="title">Рассчитайте стоимость автомобиля в лизинг</h1>
     <section class="inputs-section">
       <ul class="inputs-list">
@@ -21,9 +21,7 @@
         v-bind:title="`Ежемесячный платеж от`"
         v-bind:amount="monthPayAmount"
       />
-      <button class="submit-button" type="submit" @click="disableTextInputs()">
-        Оставить заявку
-      </button>
+      <button class="submit-button" type="submit">Оставить заявку</button>
     </section>
   </form>
 </template>
@@ -48,27 +46,15 @@ export default defineComponent({
       this.$emit("params-changed");
     },
     calculateAgreementAmount(): number {
-      const price = Calculate.params.filter(
-        (param: Param) => param.name === "price"
-      )[0].value;
-      const initial =
-        Calculate.params.filter((param: Param) => param.name === "initial")[0]
-          .value * price;
-      const months = Calculate.params.filter(
-        (param: Param) => param.name === "months"
-      )[0].value;
+      const initial = this.getInitialAmount();
+      const months = this.getMontsCount();
+
       return Math.round(initial + months * this.calculateMonthPayAmount());
     },
     calculateMonthPayAmount(): number {
-      const price = Calculate.params.filter(
-        (param: Param) => param.name === "price"
-      )[0].value;
-      const initial =
-        Calculate.params.filter((param: Param) => param.name === "initial")[0]
-          .value * price;
-      const months = Calculate.params.filter(
-        (param: Param) => param.name === "months"
-      )[0].value;
+      const price = this.getPriceAmount();
+      const initial = this.getInitialAmount();
+      const months = this.getMontsCount();
 
       return Math.round(
         (price - initial) *
@@ -80,11 +66,69 @@ export default defineComponent({
       this.monthPayAmount = this.calculateMonthPayAmount();
       this.agreementAmount = this.calculateAgreementAmount();
     },
-    disableTextInputs(): void {
-      const inputElems = Array.from(document.querySelectorAll(".input-text"));
-      inputElems.forEach((elem: Element) =>
-        elem.setAttribute("disabled", "true")
+    disableFormControls(): void {
+      const formControlElems = Array.from(
+        document.querySelectorAll(
+          'input[type="range"], input[type="text"], button'
+        )
+      ) as HTMLInputElement[];
+      formControlElems.forEach((elem) => (elem.disabled = true));
+    },
+    makeFormControlsAbledEditable(): void {
+      const formControlElems = Array.from(
+        document.querySelectorAll(
+          'input[type="range"], input[type="text"], button'
+        )
+      ) as HTMLInputElement[];
+      formControlElems.forEach((elem) => (elem.disabled = false));
+    },
+    getPriceAmount() {
+      return Calculate.params.filter(
+        (param: Param) => param.name === "price"
+      )[0].value;
+    },
+    getInitialAmount() {
+      return Math.round(
+        Calculate.params.filter((param: Param) => param.name === "price")[0]
+          .value *
+          Calculate.params.filter((param: Param) => param.name === "initial")[0]
+            .value
       );
+    },
+    getInitialRate() {
+      return Calculate.params.filter(
+        (param: Param) => param.name === "initial"
+      )[0].value;
+    },
+    getMontsCount() {
+      return Calculate.params.filter(
+        (param: Param) => param.name === "months"
+      )[0].value;
+    },
+    submitForm(e: Event) {
+      e.preventDefault();
+      this.disableFormControls();
+
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          car_coast: this.getPriceAmount(),
+          initail_payment: this.getInitialAmount(),
+          initail_payment_percent: this.getInitialRate(),
+          lease_term: this.getMontsCount(),
+          total_sum: this.calculateAgreementAmount(),
+          monthly_payment_from: this.calculateMonthPayAmount(),
+        }),
+      };
+      fetch("https://hookb.in/eK160jgYJ6UlaRPldJ1P", requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          setTimeout(() => {
+            this.makeFormControlsAbledEditable();
+            console.log("Data accepted successful:", data);
+          }, 3000);
+        });
     },
   },
   components: {
