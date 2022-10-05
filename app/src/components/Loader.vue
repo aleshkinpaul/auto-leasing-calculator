@@ -21,21 +21,7 @@
         v-bind:title="`Ежемесячный платеж от`"
         v-bind:amount="monthPayAmount"
       />
-      <div class="submit-button-container">
-        <div class="button-loading-container" v-if="isLoading">
-          <button
-            class="submit-button button-loading"
-            disabled
-            type="button"
-          ></button>
-          <div class="preloader-container">
-            <div class="preloader"></div>
-          </div>
-        </div>
-        <button class="submit-button" v-else type="submit">
-          Оставить заявку
-        </button>
-      </div>
+      <button class="submit-button" type="submit">Оставить заявку</button>
     </section>
   </form>
 </template>
@@ -53,7 +39,6 @@ export default defineComponent({
     return {
       monthPayAmount: this.calculateMonthPayAmount(),
       agreementAmount: this.calculateAgreementAmount(),
-      isLoading: false,
     };
   },
   methods: {
@@ -123,7 +108,6 @@ export default defineComponent({
     submitForm(e: Event) {
       e.preventDefault();
       this.disableFormControls();
-      this.isLoading = true;
 
       const requestOptions = {
         method: "POST",
@@ -137,15 +121,13 @@ export default defineComponent({
           monthly_payment_from: this.calculateMonthPayAmount(),
         }),
       };
-
       fetch("https://hookb.in/eK160jgYJ6UlaRPldJ1P", requestOptions)
         .then((response) => response.json())
         .then((data) => {
           setTimeout(() => {
             this.makeFormControlsAbledEditable();
-            this.isLoading = false;
-            console.log("Data accepted successfully!", data);
-          }, 1000);
+            console.log("Data accepted successful:", data);
+          }, 3000);
         });
     },
   },
@@ -182,73 +164,33 @@ export default defineComponent({
     align-items: center;
   }
 
-  .submit-button-container {
-    .submit-button {
-      height: $button-height;
-      width: $field-width;
+  .submit-button {
+    height: $button-height;
+    width: $field-width;
 
-      font-family: Nekst;
-      font-style: normal;
-      font-size: 30px;
-      line-height: 36px;
+    font-family: Nekst;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 36px;
 
-      color: $white-color;
-      background-color: $orange-color;
-      border: none;
-      border-radius: $button-border-radius;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
+    color: $white-color;
+    background-color: $orange-color;
+    border: none;
+    border-radius: $button-border-radius;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 
-      &:not(:disabled):hover {
-        background-color: $black-color;
-      }
-
-      &:not(:disabled):active {
-        background-color: $grey-dark-color;
-      }
-
-      &:focus {
-        outline: none;
-      }
-
-      &:disabled {
-        opacity: 0.4;
-      }
+    &:not(:disabled):hover {
+      background-color: $black-color;
     }
 
-    .button-loading-container {
-      position: relative;
-
-      .preloader-container {
-        position: absolute;
-        display: inline-block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      .preloader {
-        width: $loader-size;
-        height: $loader-size;
-        background-image: url(@/assets/preloader.svg);
-        background-repeat: no-repeat;
-        background-size: cover;
-        animation: rotating 1s linear infinite;
-      }
+    &:not(:disabled):active {
+      background-color: $grey-dark-color;
     }
-  }
 
-  @keyframes rotating {
-    0% {
-      transform: rotate(0deg);
+    &:disabled {
+      opacity: 0.4;
     }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  .letter-changer::after {
-    animation: changeLetter 3s linear infinite alternate;
   }
 }
 </style>
