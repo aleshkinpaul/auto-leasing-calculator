@@ -1,24 +1,183 @@
-//colors
-$dark-color: #2c3e50;
-$grey-dark-color: #575757;
-$grey-color: #ebebec;
-$grey-light-color: #f3f3f4;
-$orange-color: #ff9514;
-$white-color: #ffffff;
-$black-color: #111111;
+$desktop-screen-width: 1439px;
+$laptop-screen-width: 1023px;
+$tablet-screen-width: 767px;
+$mobile-screen-width: 319px;
 
-//common
-$app-padding: 48px;
-$column-gap: 32px;
+:root {
+  //colors
+  --dark-color: #2c3e50;
+  --grey-dark-color: #575757;
+  --grey-color: #ebebec;
+  --grey-light-color: #f3f3f4;
+  --orange-color: #ff9514;
+  --white-color: #ffffff;
+  --black-color: #111111;
+  
+  //common
+  --app-padding: 48px;
+  --column-gap: 32px;
+  
+  //fonts
+  --title-width: 760px;
+  --title-mb: 32px;
+  --title-font-size: 54px;
+  --input-subtitle-mb: 24px;
+  --subtitle-font-size: 16px;
+  --info-subtitle-mb: 8px;
+  
+  //fields
+  --field-height: 68px;
+  --field-width: calc((100vw - 2 * (var(--app-padding) + var(--column-gap))) / 3);
+  --field-border-radius: 16px;
+  --field-border-width: 2px;
+  --range-thumb-size: 20px;
+  --big-range-thumb-size: calc(var(--range-thumb-size) * 1.2);
+  --fields-section-mb: 44px;
+  --field-font-size: 30px;
+  --field-pv: 16px;
+  --field-pr: 80px;
+  --field-pl: 24px;
+  --additional-info-font-size: 30px;
+  --additional-info-small-font-size: calc(var(--additional-info-font-size) / 1.5);
+  --additional-info-small-pv: 15px;
+  --additional-info-small-ph: 17px;
+  --additional-info-small-lh: 120%;
+  
+  //info
+  --info-amount-font-size: 54px;
+  --info-field-width: var(--field-width);
+  --info-justify-content-type: space-between;
+  
+  //button
+  --button-font-size: 30px;
+  --button-border-radius: 40px;
+  --button-width: var(--info-field-width);
+  --disabled-button-opacity: 0.4;
+  --loader-size: calc(var(--field-height) * 0.4375);
+}
 
-//fields
-$field-width: calc((100vw - 2 * ($app-padding + $column-gap)) / 3);
-$field-border-radius: 16px;
-$field-border-width: 2px;
-$range-thumb-size: 20px;
-$big-range-thumb-size: calc($range-thumb-size * 1.2);
+//mixins
+@mixin setFlexParams() {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: var(--column-gap);
+  row-gap: var(--field-row-gap);
+  flex-basis: 100%;
 
-//button
-$button-height: 68px;
-$button-border-radius: 40px;
-$loader-size: calc($button-height * 0.4375);
+  @media (max-width: $desktop-screen-width) {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
+
+//keyframes
+@keyframes rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+//media
+@media (max-width: $desktop-screen-width) {
+  :root {
+    //fonts
+    --title-mb: 44px;
+
+    //fields
+    --field-width: 100%;
+    --field-row-gap: 32px;
+    --fields-section-mb: 37px;
+
+    //info
+    --info-field-width: 345px;
+    --column-gap: 20%;
+    --info-row-gap: 45px;
+    --info-justify-content-type: flex-start;
+  }
+}
+
+@media (max-width: $laptop-screen-width) {
+  :root {
+    //common
+    --app-padding: 36px;
+  }
+}
+
+@media (max-width: $tablet-screen-width) {
+  :root {  
+    //fonts
+    --title-width: 279px;
+    --title-mb: 32px;
+    --title-font-size: 34px;
+    --input-subtitle-mb: 8px;
+    --subtitle-font-size: 14px;
+    --info-subtitle-mb: 2px;
+  
+    //common
+    --app-padding: 20px;
+
+    //fields
+    --field-width: 100%;
+    --field-height: 60px;
+    --field-row-gap: 32px;
+    --fields-section-mb: 37px;
+    --field-font-size: 22px;
+    --additional-info-font-size: 22px;
+    --additional-info-small-font-size: 22px;
+    --additional-info-small-pv: 14px;
+    --additional-info-small-ph: 14px;
+    --additional-info-small-lh: 20px;
+
+    //info
+    --info-amount-font-size: 22px;
+    --info-field-width: 100%;
+    --info-field-min-width: 100%;
+    --column-gap: 20%;
+    --info-row-gap: 29px;
+    --info-justify-content-type: flex-start;
+  
+    //button
+    --button-width: 100%;
+    --button-font-size: 22px;
+  }
+}
+
+@media (max-width: $mobile-screen-width) {
+  :root {
+    //fonts
+    --title-width: 100%;
+    --title-font-size: 10vw;
+    --title-mb: 10vw;
+    --input-subtitle-mb: 3vw;
+    --subtitle-font-size: 4vw;
+    --info-subtitle-mb: 2vw;
+  
+    //common
+    --app-padding: 5vw;
+
+    //fields
+    --field-height: 20vw;
+    --field-row-gap: 10vw;
+    --fields-section-mb: 12vw;
+    --field-font-size: 8vw;
+    --additional-info-font-size: 8vw;
+    --additional-info-small-font-size: 8vw;
+    --additional-info-small-pv: 5vw;
+    --additional-info-small-ph: 5vw;
+    --additional-info-small-lh: 7vw;
+    --field-pv: 6vw;
+    --field-pr: 30vw;
+    --field-pl: 8vw;
+
+    //info
+    --info-amount-font-size: 8vw;
+    --info-row-gap: 10vw;
+  
+    //button
+    --button-font-size: 8vw;
+  }
+}

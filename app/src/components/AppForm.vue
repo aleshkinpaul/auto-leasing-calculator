@@ -158,16 +158,28 @@ export default defineComponent({
 
 <style lang="scss">
 @import "@/styles/constants.scss";
+
+.title {
+  margin: 0 0 var(--title-mb);
+  width: var(--title-width);
+
+  font-family: Nekst;
+  font-style: normal;
+  font-size: var(--title-font-size);
+  line-height: 90%;
+
+  color: var(--dark-color);
+}
+
 .inputs-section {
-  margin-bottom: 44px;
+  margin-bottom: var(--fields-section-mb);
 
   .inputs-list {
     padding: 0;
     margin: 0;
-    display: flex;
-    justify-content: space-between;
-    column-gap: $column-gap;
     box-sizing: border-box;
+
+    @include setFlexParams();
   }
 }
 
@@ -175,36 +187,37 @@ export default defineComponent({
   padding: 0;
   margin: 0;
   display: flex;
-  justify-content: space-between;
-  column-gap: $column-gap;
-
-  &:nth-child(n) {
-    align-items: center;
-  }
+  justify-content: var(--info-justify-content-type);
+  column-gap: var(--column-gap);
+  row-gap: var(--info-row-gap);
+  align-items: center;
+  flex-wrap: wrap;
 
   .submit-button-container {
+    width: var(--button-width);
+
     .submit-button {
-      height: $button-height;
-      width: $field-width;
+      height: var(--field-height);
+      width: var(--button-width);
 
       font-family: Nekst;
       font-style: normal;
-      font-size: 30px;
-      line-height: 36px;
+      font-size: var(--button-font-size);
+      line-height: calc(var(--button-font-size) * 1.2);
 
-      color: $white-color;
-      background-color: $orange-color;
+      color: var(--white-color);
+      background-color: var(--orange-color);
       border: none;
-      border-radius: $button-border-radius;
+      border-radius: var(--button-border-radius);
       cursor: pointer;
       transition: all 0.2s ease-in-out;
 
       &:not(:disabled):hover {
-        background-color: $black-color;
+        background-color: var(--black-color);
       }
 
       &:not(:disabled):active {
-        background-color: $grey-dark-color;
+        background-color: var(--grey-dark-color);
       }
 
       &:focus {
@@ -212,7 +225,7 @@ export default defineComponent({
       }
 
       &:disabled {
-        opacity: 0.4;
+        opacity: var(--disabled-button-opacity);
       }
     }
 
@@ -228,22 +241,13 @@ export default defineComponent({
       }
 
       .preloader {
-        width: $loader-size;
-        height: $loader-size;
+        width: var(--loader-size);
+        height: var(--loader-size);
         background-image: url(@/assets/preloader.svg);
         background-repeat: no-repeat;
         background-size: cover;
         animation: rotating 1s linear infinite;
       }
-    }
-  }
-
-  @keyframes rotating {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
     }
   }
 }

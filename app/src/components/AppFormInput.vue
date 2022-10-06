@@ -150,15 +150,15 @@ export default defineComponent({
 
 .input-list-item {
   list-style-type: none;
-  width: $field-width;
+  width: var(--field-width);
 
   .subtitle {
-    margin: 0 0 24px;
+    margin: 0 0 var(--input-subtitle-mb);
     font-family: Gilroy;
     font-style: normal;
-    font-size: 16px;
+    font-size: var(--subtitle-font-size);
     line-height: 20px;
-    color: $grey-dark-color;
+    color: var(--grey-dark-color);
   }
 
   .input-container {
@@ -169,75 +169,88 @@ export default defineComponent({
       position: relative;
       font-family: Nekst;
       font-style: normal;
-      color: $grey-dark-color;
+      color: var(--grey-dark-color);
 
       .input-text {
-        padding: 16px 80px 16px 24px;
-        height: 68px;
+        padding: var(--field-pv) var(--field-pr) var(--field-pv) var(--field-pl);
+        height: var(--field-height);
         width: 100%;
         box-sizing: border-box;
 
         font-family: Nekst;
         font-style: normal;
-        font-size: 30px;
-        color: $grey-dark-color;
+        font-size: var(--field-font-size);
+        color: var(--grey-dark-color);
 
-        background-color: $grey-light-color;
+        background-color: var(--grey-light-color);
         border-radius: 16px;
         border: none;
 
         &:focus {
           outline: none;
-          background-color: $white-color;
-          border: $field-border-width solid $grey-light-color;
+          background-color: var(--white-color);
+          border: var(--field-border-width) solid var(--grey-light-color);
         }
       }
 
       .additional-info {
         position: absolute;
         top: 50%;
-        right: 24px;
-        font-size: 30px;
+        right: var(--field-pl);
+        font-size: var(--additional-info-font-size);
         transform: translateY(-50%);
 
         &-small {
-          padding: 15px 17px;
-          font-size: 20px;
-          line-height: 120%;
-          background-color: $grey-color;
-          border-radius: $field-border-radius;
-          transform: translate(17px, -50%);
+          padding: var(--additional-info-small-pv)
+            var(--additional-info-small-ph);
+          font-size: var(--additional-info-small-font-size);
+          line-height: var(--additional-info-small-lh);
+          background-color: var(--grey-color);
+          border-radius: var(--field-border-radius);
+          transform: translate(var(--additional-info-small-ph), -50%);
         }
       }
     }
 
     &:hover .input-range::-webkit-slider-thumb {
-      height: $big-range-thumb-size;
-      width: $big-range-thumb-size;
-      margin-top: calc(($big-range-thumb-size / 2 - 1px) * (-1));
+      height: var(--big-range-thumb-size);
+      width: var(--big-range-thumb-size);
+      margin-top: calc((var(--big-range-thumb-size / 2 - 1px) * (-1)));
     }
 
     .input-range {
       position: relative;
-      margin: -2px 24px 0;
+      margin: -2px var(--field-pl) 0;
       -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      -o-appearance: none;
       cursor: pointer;
 
-      &::-webkit-slider-runnable-track {
+      &::-webkit-slider-runnable-track,
+      &::-moz-slider-runnable-track,
+      &::-ms-slider-runnable-track,
+      &::-o-slider-runnable-track {
         width: 100%;
-        height: $field-border-width;
+        height: var(--field-border-width);
         border: none;
         border-radius: 3px;
       }
 
-      &::-webkit-slider-thumb {
+      &::-webkit-slider-thumb,
+      &::-moz-slider-thumb,
+      &::-ms-slider-thumb,
+      &::-o-slider-thumb {
         -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        -o-appearance: none;
         border: none;
-        height: $range-thumb-size;
-        width: $range-thumb-size;
+        height: var(--range-thumb-size);
+        width: var(--range-thumb-size);
         border-radius: 50%;
-        background: $orange-color;
-        margin-top: calc(($range-thumb-size / 2 - 1px) * (-1));
+        background-color: var(--orange-color);
+        margin-top: calc((var(--range-thumb-size) / 2 - 1px) * (-1));
         transition: all 0.2s ease-in-out;
       }
 

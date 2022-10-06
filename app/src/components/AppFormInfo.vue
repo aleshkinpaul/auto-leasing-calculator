@@ -27,15 +27,16 @@ export default defineComponent({
 .info-item {
   flex-grow: 1;
   list-style-type: none;
-  width: $field-width;
+  max-width: var(--info-field-width);
+  min-width: var(--info-field-min-width);
 
   .subtitle {
-    margin: 0 0 8px;
+    margin: 0 0 var(--info-subtitle-mb);
     font-family: Gilroy;
     font-style: normal;
-    font-size: 16px;
+    font-size: var(--subtitle-font-size);
     line-height: 20px;
-    color: $grey-dark-color;
+    color: var(--grey-dark-color);
   }
 
   .info-amount {
@@ -44,9 +45,9 @@ export default defineComponent({
 
     font-family: Nekst;
     font-style: normal;
-    font-size: 54px;
+    font-size: var(--info-amount-font-size);
     line-height: 90%;
-    color: $grey-dark-color;
+    color: var(--grey-dark-color);
   }
 }
 </style>

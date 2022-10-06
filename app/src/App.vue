@@ -34,16 +34,6 @@ export default defineComponent({
 @import "./styles/fonts.scss";
 
 #app {
-  padding: 0 $app-padding;
-}
-
-.title {
-  font-family: Nekst;
-  font-style: normal;
-  font-weight: 900;
-  font-size: 54px;
-  line-height: 90%;
-
-  color: $dark-color;
+  padding: var(--app-padding);
 }
 </style>
